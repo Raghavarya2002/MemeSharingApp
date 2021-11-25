@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -36,8 +35,7 @@ class MainActivity : AppCompatActivity() {
 
 // ...
 
-// Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(this)
+
         val url = "https://meme-api.herokuapp.com/gimme"
 
 // Request a string response from the provided URL.
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             })
 
 // Add the request to the RequestQueue.
-        queue.add(jsonObjectRequest)
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
     }
 
     fun showNextMeme(view: View) {
