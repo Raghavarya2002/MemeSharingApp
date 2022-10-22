@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,19 +16,18 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 class MainActivity : AppCompatActivity() {
-    var currentImageUrl: String? = null
+    private var currentImageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        loadmeme()
+        loadMeme()
     }
 
-    private fun loadmeme() {
+    private fun loadMeme() {
         val imageView: ImageView = findViewById(R.id.memeImageView)
-        val textView = findViewById<TextView>(R.id.text)
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
 
 // ...
@@ -71,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
 
             },
-            Response.ErrorListener {
+            {
 
             })
 
@@ -80,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showNextMeme(view: View) {
-        loadmeme()
+        loadMeme()
     }
 
     fun shareMeme(view: View) {
