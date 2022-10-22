@@ -14,25 +14,24 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.example.memesharingapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private var currentImageUrl: String? = null
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
 
         loadMeme()
     }
 
-    private fun loadMeme() {
-        val imageView: ImageView = findViewById(R.id.memeImageView)
-        val progressBar: ProgressBar = findViewById(R.id.progressBar)
-
-// ...
-
-
+    private fun loadMeme() = with(binding){
         val url = "https://meme-api.herokuapp.com/gimme"
 
 // Request a string response from the provided URL.
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             { response ->
 
                 currentImageUrl = response.getString("url")
-                Glide.with(this).load(currentImageUrl).listener(object : RequestListener<Drawable> {
+                Glide.with(this@MainActivity).load(currentImageUrl).listener(object : RequestListener<Drawable> {
 
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             })
 
 // Add the request to the RequestQueue.
-        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+        MySingleton.getInstance(this@MainActivity).addToRequestQueue(jsonObjectRequest)
     }
 
     fun showNextMeme(view: View) {
